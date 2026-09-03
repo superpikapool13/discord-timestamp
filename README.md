@@ -16,4 +16,4 @@ Outputs a production build to `dist/`.
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+MIT — see [LICENSE](LICENSE).
