@@ -1,0 +1,35 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" xmlns:c2pa="http://c2pa.org/manifest">
+<metadata><c2pa:manifest></c2pa:manifest></metadata>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E1F27"/>
+      <stop offset="100%" stop-color="#2B2D42"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#5865F2" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#5865F2" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Scattered faint code snippets -->
+  <g fill="#5865F2" fill-opacity="0.18" font-family="'Courier New', monospace" font-size="22">
+    <text x="80" y="90">&lt;t:1735689600:R&gt;</text>
+    <text x="850" y="120">&lt;t:1735689600:F&gt;</text>
+    <text x="60" y="560">&lt;t:1735689600:d&gt;</text>
+    <text x="880" y="580">&lt;t:1735689600:t&gt;</text>
+  </g>
+
+  <!-- Clock icon -->
+  <circle cx="180" cy="315" r="70" fill="none" stroke="#5865F2" stroke-width="6"/>
+  <path d="M180 275 L180 315 L210 335" fill="none" stroke="#5865F2" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Title -->
+  <text x="300" y="300" font-family="system-ui, sans-serif" font-size="58" font-weight="700" fill="#FFFFFF">Discord Timestamp</text>
+  <text x="300" y="365" font-family="system-ui, sans-serif" font-size="58" font-weight="700" fill="#FFFFFF">Generator</text>
+
+  <!-- Subtitle -->
+  <text x="300" y="415" font-family="system-ui, sans-serif" font-size="26" fill="#B7B9C9">Pick a time, copy the format, paste it in Discord.</text>
+</svg>
