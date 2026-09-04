@@ -1,5 +1,4 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" xmlns:c2pa="http://c2pa.org/manifest">
-<metadata><c2pa:manifest></c2pa:manifest></metadata>
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#1E1F27"/>
@@ -23,8 +22,8 @@
   </g>
 
   <!-- Clock icon -->
-  <circle cx="180" cy="315" r="70" fill="none" stroke="#5865F2" stroke-width="6"/>
-  <path d="M180 275 L180 315 L210 335" fill="none" stroke="#5865F2" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="180" cy="315" r="70" fill="none" stroke="#5865F2" stroke-width="9"/>
+  <path d="M180 275 L180 315 L210 335" fill="none" stroke="#5865F2" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
 
   <!-- Title -->
   <text x="300" y="300" font-family="system-ui, sans-serif" font-size="58" font-weight="700" fill="#FFFFFF">Discord Timestamp</text>

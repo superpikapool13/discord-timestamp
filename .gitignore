@@ -9,5 +9,6 @@ dist
 public/favicon.ico
 public/favicon.png
 public/og-image.png
+public/apple-touch-icon.png
 
 *.zip
