@@ -1,5 +1,5 @@
 <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" xmlns:c2pa="http://c2pa.org/manifest">
-  <g fill="#5865F2" fill-opacity="0.1" font-family="'Courier New', monospace">
+  <g fill="#5865F2" fill-opacity="0.1" font-family="'Cascadia Code', 'Roboto Mono', Consolas, monospace">
     <text x="10" y="40" font-size="20">&lt;t:1699999999:F&gt;</text>
     <text x="220" y="90" font-size="16">&lt;t:1699999999:R&gt;</text>
     <text x="40" y="160" font-size="18">&lt;t:1699999999:d&gt;</text>
