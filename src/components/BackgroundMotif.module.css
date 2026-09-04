@@ -1,0 +1,14 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+
+  /* Tile the SVG at its natural 400x400 size, no stretching */
+  background-image: url('../../assets/background-motif.svg');
+  background-repeat: repeat;
+  background-size: 400px 400px;
+
+  opacity: 1;
+}
