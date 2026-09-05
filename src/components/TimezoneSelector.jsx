@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { getAllTimeZones } from '../utils/timezoneList';
 import { FIXED_OFFSET_TIMEZONES } from '../utils/fixedOffsetTimezones';
 import { getLocalTimeZone, getOffsetMinutes } from '../utils/datetimeHelpers';
-import { resolveTimezoneInput, getDisplayLabel } from '../utils/timezoneInput';
+import { resolveTimezoneInput, getDisplayLabel, formatTimezoneOption } from '../utils/timezoneInput';
 import styles from './TimezoneSelector.module.css';
 
 function formatOffset(minutes) {
@@ -31,8 +31,11 @@ export function TimezoneSelector({ timezone, onChange }) {
     const sortedZones = getAllTimeZones()
       .filter((zone) => zone !== localZone)
       .sort((a, b) => getOffsetMinutes(a, now) - getOffsetMinutes(b, now) || a.localeCompare(b));
-    const fixedLabels = FIXED_OFFSET_TIMEZONES.map((f) => f.label);
-    return [localZone, ...fixedLabels, ...sortedZones];
+
+    const fixedOptions = FIXED_OFFSET_TIMEZONES.map((f) => formatTimezoneOption(f.zone, now));
+    const zoneOptions = sortedZones.map((zone) => formatTimezoneOption(zone, now));
+
+    return [formatTimezoneOption(localZone, now), ...fixedOptions, ...zoneOptions];
   }, [localZone]);
 
   const currentOffset = useMemo(() => getOffsetMinutes(timezone), [timezone]);

@@ -7,12 +7,12 @@
 // Note: Etc/GMT sign convention is inverted (POSIX-style): Etc/GMT+8 means
 // UTC-8, not UTC+8.
 export const FIXED_OFFSET_TIMEZONES = [
-  { label: 'PST (Pacific Standard Time, fixed)', zone: 'Etc/GMT+8' },
-  { label: 'PDT (Pacific Daylight Time, fixed)', zone: 'Etc/GMT+7' },
-  { label: 'EST (Eastern Standard Time, fixed)', zone: 'Etc/GMT+5' },
-  { label: 'EDT (Eastern Daylight Time, fixed)', zone: 'Etc/GMT+4' },
-  { label: 'CET (Central European Time, fixed)', zone: 'Etc/GMT-1' },
-  { label: 'CEST (Central European Summer Time, fixed)', zone: 'Etc/GMT-2' },
-  { label: 'AEST (Australian Eastern Standard Time, fixed)', zone: 'Etc/GMT-10' },
-  { label: 'AEDT (Australian Eastern Daylight Time, fixed)', zone: 'Etc/GMT-11' },
+  { code: 'PST', description: 'Pacific Standard Time, fixed', zone: 'Etc/GMT+8' },
+  { code: 'PDT', description: 'Pacific Daylight Time, fixed', zone: 'Etc/GMT+7' },
+  { code: 'EST', description: 'Eastern Standard Time, fixed', zone: 'Etc/GMT+5' },
+  { code: 'EDT', description: 'Eastern Daylight Time, fixed', zone: 'Etc/GMT+4' },
+  { code: 'CET', description: 'Central European Time, fixed', zone: 'Etc/GMT-1' },
+  { code: 'CEST', description: 'Central European Summer Time, fixed', zone: 'Etc/GMT-2' },
+  { code: 'AEST', description: 'Australian Eastern Standard Time, fixed', zone: 'Etc/GMT-10' },
+  { code: 'AEDT', description: 'Australian Eastern Daylight Time, fixed', zone: 'Etc/GMT-11' },
 ];
