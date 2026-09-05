@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { FALLBACK_TIMEZONES } from '../utils/timezoneList';
-import { getLocalTimeZone } from '../utils/datetimeHelpers';
+import { getLocalTimeZone, getOffsetMinutes } from '../utils/datetimeHelpers';
 import styles from './TimezoneSelector.module.css';
 
 function getAllTimeZones() {
@@ -14,27 +14,26 @@ function getAllTimeZones() {
   return FALLBACK_TIMEZONES;
 }
 
-function formatOffset(timeZone) {
-  try {
-    const formatter = new Intl.DateTimeFormat('en-US', {
-      timeZone,
-      timeZoneName: 'shortOffset',
-    });
-    const part = formatter.formatToParts(new Date()).find((p) => p.type === 'timeZoneName');
-    return part ? part.value : '';
-  } catch {
-    return '';
-  }
+function formatOffset(minutes) {
+  const sign = minutes < 0 ? '-' : '+';
+  const abs = Math.abs(minutes);
+  const hours = String(Math.floor(abs / 60)).padStart(2, '0');
+  const mins = String(abs % 60).padStart(2, '0');
+  return `UTC${sign}${hours}:${mins}`;
 }
 
 export function TimezoneSelector({ timezone, onChange }) {
   const localZone = useMemo(() => getLocalTimeZone(), []);
-  const allZones = useMemo(() => getAllTimeZones(), []);
 
-  const otherZones = useMemo(
-    () => allZones.filter((tz) => tz !== localZone && tz !== 'UTC').sort(),
-    [allZones, localZone]
-  );
+  const sortedZones = useMemo(() => {
+    const allZones = getAllTimeZones();
+    const now = new Date();
+    return allZones
+      .map((zone) => ({ zone, offset: getOffsetMinutes(zone, now) }))
+      .sort((a, b) => a.offset - b.offset || a.zone.localeCompare(b.zone));
+  }, []);
+
+  const localOffset = useMemo(() => getOffsetMinutes(localZone), [localZone]);
 
   return (
     <label className={styles.field}>
@@ -46,16 +45,13 @@ export function TimezoneSelector({ timezone, onChange }) {
       >
         <optgroup label="Detected">
           <option value={localZone}>
-            {localZone} ({formatOffset(localZone)})
+            {localZone} ({formatOffset(localOffset)})
           </option>
         </optgroup>
-        <optgroup label="Common">
-          <option value="UTC">UTC (+00:00)</option>
-        </optgroup>
-        <optgroup label="All timezones">
-          {otherZones.map((tz) => (
-            <option key={tz} value={tz}>
-              {tz} ({formatOffset(tz)})
+        <optgroup label="All timezones (by UTC offset)">
+          {sortedZones.map(({ zone, offset }) => (
+            <option key={zone} value={zone}>
+              {zone} ({formatOffset(offset)})
             </option>
           ))}
         </optgroup>

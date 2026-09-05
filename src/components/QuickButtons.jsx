@@ -11,6 +11,10 @@ export function QuickButtons({ timezone, date, time, onSetDateTime }) {
     onSetDateTime(date, '00:00:00');
   }
 
+  function handleNoon() {
+    onSetDateTime(date, '12:00:00');
+  }
+
   function handleStartOfHour() {
     const [hour] = time.split(':');
     onSetDateTime(date, `${hour}:00:00`);
@@ -23,6 +27,9 @@ export function QuickButtons({ timezone, date, time, onSetDateTime }) {
       </button>
       <button type="button" className={styles.button} onClick={handleMidnight}>
         Midnight
+      </button>
+      <button type="button" className={styles.button} onClick={handleNoon}>
+        Noon
       </button>
       <button type="button" className={styles.button} onClick={handleStartOfHour}>
         Start of hour
