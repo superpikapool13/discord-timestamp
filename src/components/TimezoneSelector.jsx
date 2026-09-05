@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { FALLBACK_TIMEZONES } from '../utils/timezoneList';
+import { FIXED_OFFSET_TIMEZONES } from '../utils/fixedOffsetTimezones';
 import { getLocalTimeZone, getOffsetMinutes } from '../utils/datetimeHelpers';
 import styles from './TimezoneSelector.module.css';
 
@@ -33,6 +34,16 @@ export function TimezoneSelector({ timezone, onChange }) {
       .sort((a, b) => a.offset - b.offset || a.zone.localeCompare(b.zone));
   }, []);
 
+  const fixedOffsetZones = useMemo(
+    () =>
+      FIXED_OFFSET_TIMEZONES.map(({ label, zone }) => ({
+        label,
+        zone,
+        offset: getOffsetMinutes(zone),
+      })).sort((a, b) => a.offset - b.offset),
+    []
+  );
+
   const localOffset = useMemo(() => getOffsetMinutes(localZone), [localZone]);
 
   return (
@@ -48,6 +59,15 @@ export function TimezoneSelector({ timezone, onChange }) {
             {localZone} ({formatOffset(localOffset)})
           </option>
         </optgroup>
+
+        <optgroup label="Fixed offset (no DST)">
+          {fixedOffsetZones.map(({ label, zone, offset }) => (
+            <option key={zone} value={zone}>
+              {label} ({formatOffset(offset)})
+            </option>
+          ))}
+        </optgroup>
+
         <optgroup label="All timezones (by UTC offset)">
           {sortedZones.map(({ zone, offset }) => (
             <option key={zone} value={zone}>
