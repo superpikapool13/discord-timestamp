@@ -1,5 +1,6 @@
 import { getAllTimeZones } from './timezoneList';
 import { FIXED_OFFSET_TIMEZONES } from './fixedOffsetTimezones';
+import { KNOWN_ZONE_CODES } from './zoneAbbreviations';
 import { getOffsetMinutes } from './datetimeHelpers';
 
 function formatOffset(minutes) {
@@ -10,30 +11,44 @@ function formatOffset(minutes) {
   return `UTC${sign}${hours}:${mins}`;
 }
 
+// Matches Intl fallback strings that just restate the offset instead of
+// giving a real abbreviation, e.g. "GMT+5:30", "GMT-8", "UTC+05:30".
+function isOffsetLike(value) {
+  return /^(GMT|UTC)([+-]\d{1,2}(:?\d{2})?)?$/i.test(value.trim());
+}
+
 /**
- * Returns the short, localized abbreviation for a real IANA zone at a given
- * instant (e.g. "IST", "PDT", "GMT+5:45" for zones with no common name).
- * Falls back to the formatted offset if Intl can't produce one.
+ * Returns the short, localized abbreviation for a real IANA zone at a given instant
+ * (e.g. "IST", "PDT"), or null if no meaningful abbreviation is available
+ * (i.e. only a restated offset, which isn't worth displaying twice).
+ * Checks a curated override map first, since Intl's 'short' name falls
+ * back to a raw offset for many zones outside the US/UK/EU/AU.
  */
 function getShortCode(zone, date) {
+  if (KNOWN_ZONE_CODES[zone]) return KNOWN_ZONE_CODES[zone];
+
   try {
     const formatter = new Intl.DateTimeFormat('en-US', {
       timeZone: zone,
       timeZoneName: 'short',
     });
     const part = formatter.formatToParts(date).find((p) => p.type === 'timeZoneName');
-    return part ? part.value : formatOffset(getOffsetMinutes(zone, date));
+    const value = part ? part.value : null;
+    if (value && !isOffsetLike(value)) return value;
   } catch {
-    return formatOffset(getOffsetMinutes(zone, date));
+    // fall through
   }
+
+  return null;
 }
 
 /**
  * Builds the display string for a timezone option, in the form:
  *   "UTC+05:30 - IST (Asia/Kolkata)"
+ * When no meaningful abbreviation is available, the code segment is
+ * omitted entirely rather than showing a duplicate of the offset:
+ *   "UTC+05:45 (Asia/Kathmandu)"
  * Fixed-offset entries (PST, CET, etc.) use their known code/description
- * instead of Intl's short name. UTC itself is shown without a redundant
- * parenthetical.
  */
 export function formatTimezoneOption(zone, referenceDate = new Date()) {
   const fixed = FIXED_OFFSET_TIMEZONES.find((f) => f.zone === zone);
@@ -48,7 +63,10 @@ export function formatTimezoneOption(zone, referenceDate = new Date()) {
 
   const offset = getOffsetMinutes(zone, referenceDate);
   const code = getShortCode(zone, referenceDate);
-  return `${formatOffset(offset)} - ${code} (${zone})`;
+
+  return code
+    ? `${formatOffset(offset)} - ${code} (${zone})`
+    : `${formatOffset(offset)} (${zone})`;
 }
 
 /**
@@ -60,9 +78,12 @@ export function getDisplayLabel(zone) {
   return formatTimezoneOption(zone);
 }
 
-// Matches our composite display format: "UTC+05:30 - IST (Asia/Kolkata)"
-// or the bare UTC case: "UTC+00:00 - UTC"
-const COMPOSITE_RE = /^UTC([+-]\d{2}:\d{2})\s*-\s*(.+?)\s*(?:\(([^)]+)\))?$/i;
+// Matches our composite display format. The "- CODE" segment is optional
+// since it's omitted for zones with no meaningful abbreviation:
+//   "UTC+05:30 - IST (Asia/Kolkata)"
+//   "UTC+05:45 (Asia/Kathmandu)"
+//   "UTC+00:00 - UTC"
+const COMPOSITE_RE = /^UTC([+-]\d{2}:\d{2})(?:\s*-\s*(.+?))?\s*(?:\(([^)]+)\))?$/i;
 
 /**
  * Resolves free-text timezone input into a value the rest of the app
@@ -70,8 +91,8 @@ const COMPOSITE_RE = /^UTC([+-]\d{2}:\d{2})\s*-\s*(.+?)\s*(?:\(([^)]+)\))?$/i;
  * fixed-offset string). Accepts:
  *   - An exact (case-insensitive) IANA zone name, e.g. "Asia/Kolkata"
  *   - A fixed-offset code, e.g. "PST"
- *   - A composite display string picked from the dropdown, e.g.
- *     "UTC+05:30 - IST (Asia/Kolkata)"
+ *   - A composite display string picked from the dropdown
+ *   - e.g. "UTC+05:30 - IST (Asia/Kolkata)"
  *   - A raw UTC offset, e.g. "+5:30", "-8", "utc+2", "gmt-04:00", "5:30"
  * Returns null if the input doesn't match anything recognizable.
  */
@@ -106,12 +127,14 @@ export function resolveTimezoneInput(rawText) {
       if (detailFixedMatch) return detailFixedMatch.zone;
     }
 
+    if (codePart) {
     const codeFixedMatch = FIXED_OFFSET_TIMEZONES.find(
       (f) => f.code.toLowerCase() === codePart.toLowerCase()
     );
     if (codeFixedMatch) return codeFixedMatch.zone;
 
     if (codePart.toLowerCase() === 'utc') return 'UTC';
+    }
 
     // Fall back to the offset itself if nothing else matched.
     return `UTC${offsetPart}`;
