@@ -1,5 +1,3 @@
-// Fallback list for browsers that don't support Intl.supportedValuesOf('timeZone').
-// Covers major regions/cities; not exhaustive.
 export const FALLBACK_TIMEZONES = [
   'UTC',
   'Pacific/Midway',
@@ -31,3 +29,19 @@ export const FALLBACK_TIMEZONES = [
   'Australia/Sydney',
   'Pacific/Auckland',
 ];
+
+/**
+ * Returns every IANA timezone the browser knows about, via the modern
+ * Intl.supportedValuesOf API where available, falling back to a curated
+ * list of common zones on older browsers.
+ */
+export function getAllTimeZones() {
+  if (typeof Intl.supportedValuesOf === 'function') {
+    try {
+      return Intl.supportedValuesOf('timeZone');
+    } catch {
+      return FALLBACK_TIMEZONES;
+    }
+  }
+  return FALLBACK_TIMEZONES;
+}

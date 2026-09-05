@@ -1,19 +1,9 @@
-import { useMemo } from 'react';
-import { FALLBACK_TIMEZONES } from '../utils/timezoneList';
+import { useEffect, useMemo, useState } from 'react';
+import { getAllTimeZones } from '../utils/timezoneList';
 import { FIXED_OFFSET_TIMEZONES } from '../utils/fixedOffsetTimezones';
 import { getLocalTimeZone, getOffsetMinutes } from '../utils/datetimeHelpers';
+import { resolveTimezoneInput, getDisplayLabel } from '../utils/timezoneInput';
 import styles from './TimezoneSelector.module.css';
-
-function getAllTimeZones() {
-  if (typeof Intl.supportedValuesOf === 'function') {
-    try {
-      return Intl.supportedValuesOf('timeZone');
-    } catch {
-      return FALLBACK_TIMEZONES;
-    }
-  }
-  return FALLBACK_TIMEZONES;
-}
 
 function formatOffset(minutes) {
   const sign = minutes < 0 ? '-' : '+';
@@ -24,58 +14,76 @@ function formatOffset(minutes) {
 }
 
 export function TimezoneSelector({ timezone, onChange }) {
+  const [draft, setDraft] = useState(() => getDisplayLabel(timezone));
+  const [isInvalid, setIsInvalid] = useState(false);
+
   const localZone = useMemo(() => getLocalTimeZone(), []);
 
-  const sortedZones = useMemo(() => {
-    const allZones = getAllTimeZones();
+  // Keep the field's text in sync when the timezone changes from elsewhere
+  // (e.g. a shortcut button click).
+  useEffect(() => {
+    setDraft(getDisplayLabel(timezone));
+    setIsInvalid(false);
+  }, [timezone]);
+
+  const datalistOptions = useMemo(() => {
     const now = new Date();
-    return allZones
-      .map((zone) => ({ zone, offset: getOffsetMinutes(zone, now) }))
-      .sort((a, b) => a.offset - b.offset || a.zone.localeCompare(b.zone));
-  }, []);
+    const sortedZones = getAllTimeZones()
+      .filter((zone) => zone !== localZone)
+      .sort((a, b) => getOffsetMinutes(a, now) - getOffsetMinutes(b, now) || a.localeCompare(b));
+    const fixedLabels = FIXED_OFFSET_TIMEZONES.map((f) => f.label);
+    return [localZone, ...fixedLabels, ...sortedZones];
+  }, [localZone]);
 
-  const fixedOffsetZones = useMemo(
-    () =>
-      FIXED_OFFSET_TIMEZONES.map(({ label, zone }) => ({
-        label,
-        zone,
-        offset: getOffsetMinutes(zone),
-      })).sort((a, b) => a.offset - b.offset),
-    []
-  );
+  const currentOffset = useMemo(() => getOffsetMinutes(timezone), [timezone]);
 
-  const localOffset = useMemo(() => getOffsetMinutes(localZone), [localZone]);
+  function handleChange(e) {
+    const value = e.target.value;
+    setDraft(value);
+
+    if (value.trim() === '') {
+      setIsInvalid(false);
+      return;
+    }
+
+    const resolved = resolveTimezoneInput(value);
+    if (resolved) {
+      setIsInvalid(false);
+      onChange(resolved);
+    } else {
+      setIsInvalid(true);
+    }
+  }
+
+  function handleBlur() {
+    // If what's left in the field never resolved to a valid zone, revert
+    // to the last valid committed timezone rather than leaving it broken.
+    const resolved = resolveTimezoneInput(draft);
+    if (!resolved) {
+      setDraft(getDisplayLabel(timezone));
+      setIsInvalid(false);
+    }
+  }
 
   return (
     <label className={styles.field}>
       <span className={styles.label}>Timezone</span>
-      <select
-        className={styles.select}
-        value={timezone}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        <optgroup label="Detected">
-          <option value={localZone}>
-            {localZone} ({formatOffset(localOffset)})
-          </option>
-        </optgroup>
-
-        <optgroup label="Fixed offset (no DST)">
-          {fixedOffsetZones.map(({ label, zone, offset }) => (
-            <option key={zone} value={zone}>
-              {label} ({formatOffset(offset)})
-            </option>
-          ))}
-        </optgroup>
-
-        <optgroup label="All timezones (by UTC offset)">
-          {sortedZones.map(({ zone, offset }) => (
-            <option key={zone} value={zone}>
-              {zone} ({formatOffset(offset)})
-            </option>
-          ))}
-        </optgroup>
-      </select>
+      <input
+        type="text"
+        className={`${styles.input} ${isInvalid ? styles.invalid : ''}`}
+        list="timezone-options"
+        value={draft}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        placeholder="e.g. Asia/Kolkata or +05:30"
+        autoComplete="off"
+      />
+      <datalist id="timezone-options">
+        {datalistOptions.map((opt) => (
+          <option key={opt} value={opt} />
+        ))}
+      </datalist>
+      <span className={styles.hint}>Current offset: {formatOffset(currentOffset)}</span>
     </label>
   );
 }
