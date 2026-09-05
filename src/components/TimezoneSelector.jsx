@@ -55,6 +55,14 @@ export function TimezoneSelector({ timezone, onChange }) {
     }
   }
 
+  function handleFocus() {
+    // Clear the field so the full list of suggestions shows immediately,
+    // instead of being filtered down to near-nothing by whatever zone
+    // name is already sitting in the field.
+    setDraft('');
+    setIsInvalid(false);
+  }
+
   function handleBlur() {
     // If what's left in the field never resolved to a valid zone, revert
     // to the last valid committed timezone rather than leaving it broken.
@@ -74,6 +82,7 @@ export function TimezoneSelector({ timezone, onChange }) {
         list="timezone-options"
         value={draft}
         onChange={handleChange}
+        onFocus={handleFocus}
         onBlur={handleBlur}
         placeholder="e.g. Asia/Kolkata or +05:30"
         autoComplete="off"

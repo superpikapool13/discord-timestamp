@@ -40,22 +40,29 @@ Discord timestamps are a powerful feature, but creating them can be tedious. Thi
 - **Deployed to GitHub Pages** — Free, fast static hosting
 
 ## Running locally
+
 Clone the repository
+
 ```bash
 git clone https://github.com/superpikapool13/discord-timestamp.git dts
 cd dts
 npm install
 ```
+
 Start the dev server:
+
 ```bash
 npm run dev
 ```
+
 Visit the local dev URL and open `main.html`.
 
 ### Build
+
 ```bash
 npm run build
 ```
+
 Outputs a production build to `dist/`.
 
 ## License
