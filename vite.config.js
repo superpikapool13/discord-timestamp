@@ -24,7 +24,9 @@ export default defineConfig({
   plugins: [react(), renameMainToIndex()],
   build: {
     rollupOptions: {
-      input: resolve(__dirname, 'main.html'),
+      // Named 'index' so [name] resolves to 'index' in output filenames
+      // (index.js, index.css) even though the source entry is main.html.
+      input: { index: resolve(__dirname, 'main.html') },
       output: {
         // No hashing for JS entry points and CSS - keeps asset URLs
         // predictable for the gh-pages branch. All other assets (images,
