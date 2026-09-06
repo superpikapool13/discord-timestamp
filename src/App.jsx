@@ -5,7 +5,9 @@ import { DateTimePicker } from './components/DateTimePicker';
 import { TimezoneSelector } from './components/TimezoneSelector';
 import { TimezoneShortcuts } from './components/TimezoneShortcuts';
 import { QuickButtons } from './components/QuickButtons';
+import { OutputTable } from './components/OutputTable';
 import { getPartsInTimeZone, getLocalTimeZone, zonedTimeToUtc } from './utils/datetimeHelpers';
+import { getFormattedOutputs } from './utils/timestamp';
 
 const initialTimezone = getLocalTimeZone();
 const initialParts = getPartsInTimeZone(new Date(), initialTimezone);
@@ -30,6 +32,8 @@ function App() {
     setTimezone(newZone);
   }
 
+  const formats = getFormattedOutputs(date, time, timezone);
+
   return (
     <Layout>
       <ThemeToggle />
@@ -48,7 +52,7 @@ function App() {
           onSetDateTime={handleSetDateTime}
         />
 
-        <p>Coming soon...</p>
+        <OutputTable formats={formats} />
       </div>
     </Layout>
   );
