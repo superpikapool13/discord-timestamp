@@ -23,6 +23,9 @@ export default defineConfig({
   base: '/discord-timestamp/',
   plugins: [react(), renameMainToIndex()],
   build: {
+    // Disable inlining small assets as base64 data URIs - keep everything
+    // (including small SVGs like background-motif.svg) as separate files.
+    assetsInlineLimit: 0,
     rollupOptions: {
       // Named 'index' so [name] resolves to 'index' in output filenames
       // (index.js, index.css) even though the source entry is main.html.
