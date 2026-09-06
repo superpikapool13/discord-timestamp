@@ -2,6 +2,8 @@
 
 A clean, timezone-aware Discord timestamp generator. Pick a date, time & timezone — 
 get every Discord timestamp format (`<t:unix:X>`) plus ISO & Unix, ready to copy.
+ 
+**Live:** https://superpikapool13.github.io/discord-timestamp/
 
 ## Overview
 

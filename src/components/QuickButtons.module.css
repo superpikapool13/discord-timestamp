@@ -1,7 +1,9 @@
 .wrapper {
   display: flex;
+  justify-content: space-around;
   gap: var(--spacing-sm);
   flex-wrap: wrap;
+  margin-block: 0.5rem;
 }
 
 .button {

@@ -26,10 +26,16 @@ export default defineConfig({
     rollupOptions: {
       input: resolve(__dirname, 'main.html'),
       output: {
-        // No filename hashing - keep predictable, stable asset names.
+        // No hashing for JS entry points and CSS - keeps asset URLs
+        // predictable for the gh-pages branch. All other assets (images,
+        // fonts, SVGs processed by Vite, etc.) keep their content hash for
+        // cache-busting purposes.
         entryFileNames: 'assets/[name].js',
         chunkFileNames: 'assets/[name].js',
-        assetFileNames: 'assets/[name].[ext]',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.endsWith('.css')) return 'assets/[name].[ext]';
+          return 'assets/[name]-[hash].[ext]';
+        },
       },
     },
   },
