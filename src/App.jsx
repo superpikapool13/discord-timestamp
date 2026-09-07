@@ -61,26 +61,33 @@ function App() {
           </p>
         </header>
 
-        <div className={styles.card}>
-          <span className={styles.sectionLabel}>Date &amp; Time</span>
-          <DateTimePicker date={date} time={time} onDateChange={setDate} onTimeChange={setTime} />
+        <div className={styles.columns}>
+          <div className={styles.card}>
+            <span className={styles.sectionLabel}>Date &amp; Time</span>
+            <DateTimePicker
+              date={date}
+              time={time}
+              onDateChange={setDate}
+              onTimeChange={setTime}
+            />
 
-          <span className={styles.sectionLabel}>Quick Actions</span>
-          <QuickButtons
-            timezone={timezone}
-            date={date}
-            time={time}
-            onSetDateTime={handleSetDateTime}
-          />
+            <span className={styles.sectionLabel}>Quick Actions</span>
+            <QuickButtons
+              timezone={timezone}
+              date={date}
+              time={time}
+              onSetDateTime={handleSetDateTime}
+            />
 
-          <span className={styles.sectionLabel}>Timezone</span>
-          <TimezoneSelector timezone={timezone} onChange={handleTimezoneChange} />
-          <TimezoneShortcuts timezone={timezone} onSelect={handleTimezoneChange} />
-        </div>
+            <span className={styles.sectionLabel}>Timezone</span>
+            <TimezoneSelector timezone={timezone} onChange={handleTimezoneChange} />
+            <TimezoneShortcuts timezone={timezone} onSelect={handleTimezoneChange} />
+          </div>
 
-        <div className={styles.outputSection}>
-          <h2 className={styles.outputHeading}>Generated Formats</h2>
-          <OutputTable formats={formats} />
+          <div className={styles.outputSection}>
+            <h2 className={styles.outputHeading}>Generated Formats</h2>
+            <OutputTable formats={formats} />
+          </div>
         </div>
 
         <Footer />

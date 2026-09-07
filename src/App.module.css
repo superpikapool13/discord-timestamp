@@ -21,6 +21,13 @@
   color: var(--color-text-secondary);
 }
 
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  align-items: start;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -29,6 +36,10 @@
   border: 1px solid var(--color-border);
   border-radius: 16px;
   background: var(--color-bg-secondary);
+  /* Grid items default to min-width: auto, which can be wider than the
+     content needs and force horizontal scroll - min-width: 0 lets this
+     column shrink to fit instead. */
+  min-width: 0;
 }
 
 .sectionLabel {
@@ -42,11 +53,18 @@
 .outputSection {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .outputHeading {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
+}
+
+@media (max-width: 768px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
