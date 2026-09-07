@@ -20,6 +20,11 @@ export function QuickButtons({ timezone, date, time, onSetDateTime }) {
     onSetDateTime(date, `${hour}:00:00`);
   }
 
+  function handleHalfHour() {
+    const [hour] = time.split(':');
+    onSetDateTime(date, `${hour}:30:00`);
+  }
+
   return (
     <div className={styles.wrapper}>
       <button type="button" className={styles.button} onClick={handleNow}>
@@ -33,6 +38,9 @@ export function QuickButtons({ timezone, date, time, onSetDateTime }) {
       </button>
       <button type="button" className={styles.button} onClick={handleStartOfHour}>
         Start of hour
+      </button>
+      <button type="button" className={styles.button} onClick={handleHalfHour}>
+        Half hour
       </button>
     </div>
   );
