@@ -27,12 +27,32 @@ Discord timestamps are a powerful feature, but creating them can be tedious. Thi
 
 ## Features
 
-- **Instant previews** — see how each format renders in real Discord
-- **Full timezone support** — common zones + custom UTC offsets
+- **Instant previews** — see how each Discord format renders, using your own browser's local time (exactly how Discord itself renders it for any viewer)
+- **Rich timezone input** — search by zone name (e.g. "Kolkata"), type a raw UTC offset (e.g. "+5:30"), or use fixed-offset codes (PST, EST, CET, AEST, etc.) that never shift for daylight saving
+- **One-click timezone shortcuts** — PT, ET, UTC, CET, IST, SGT, JST, AEST
+- **Quick actions** — jump to Now, Midnight, Noon, or the start of the current hour
 - **Dark/light theme** — respects system preference, manually toggleable
+- **Copy any format** with one click, with confirmation feedback
+- **Live-updating relative time** — refreshes periodically so "in 3 hours" doesn't go stale
 - **Responsive design** — works on desktop and mobile
 - **PWA-ready** — installable on mobile devices (coming soon)
 - **Zero dependencies** — built with vanilla React & Vite for speed
+
+## Project Structure
+
+```
+├── assets/                  # Source SVGs (favicon, OG image, background motif)
+├── public/                  # Static files copied as-is (robots.txt, manifest, converted icons)
+├── src/
+│   ├── components/          # React components (one file + one .module.css each)
+│   ├── utils/                # Timezone/timestamp logic, no React dependencies
+│   ├── App.jsx
+│   ├── script.jsx            # Entry point (imported by main.html)
+│   └── styles.css            # Global reset + design tokens
+├── main.html                 # Dev entry point (built into index.html)
+├── vite.config.js
+└── package.json
+```
 
 ## Tech Stack
 
@@ -41,9 +61,9 @@ Discord timestamps are a powerful feature, but creating them can be tedious. Thi
 - **CSS modules** — Scoped, maintainable styling
 - **Deployed to GitHub Pages** — Free, fast static hosting
 
-## Running locally
+## Development
 
-Clone the repository
+Clone and install:
 
 ```bash
 git clone https://github.com/superpikapool13/discord-timestamp.git dts

@@ -1,7 +1,7 @@
 {
   "name": "discord-timestamp",
   "private": true,
-  "version": "0.2.6+d",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

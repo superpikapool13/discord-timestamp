@@ -53,11 +53,11 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
-html { min-height: 100%; }
+html {
+  min-height: 100%;
+}
 
 #root {
   min-height: 100vh;
@@ -83,4 +83,13 @@ select,
 textarea {
   font-family: inherit;
   font-size: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Layout } from './components/Layout';
 import { ThemeToggle } from './components/ThemeToggle';
 import { DateTimePicker } from './components/DateTimePicker';
@@ -6,16 +6,32 @@ import { TimezoneSelector } from './components/TimezoneSelector';
 import { TimezoneShortcuts } from './components/TimezoneShortcuts';
 import { QuickButtons } from './components/QuickButtons';
 import { OutputTable } from './components/OutputTable';
+import { Footer } from './components/Footer';
 import { getPartsInTimeZone, getLocalTimeZone, zonedTimeToUtc } from './utils/datetimeHelpers';
 import { getFormattedOutputs } from './utils/timestamp';
+import styles from './App.module.css';
 
 const initialTimezone = getLocalTimeZone();
 const initialParts = getPartsInTimeZone(new Date(), initialTimezone);
+
+// How often to force a re-render so the "Relative" format (e.g. "in 3 hours")
+// stays fresh even if the user leaves the tab open without touching any input.
+const RELATIVE_REFRESH_MS = 30000;
 
 function App() {
   const [timezone, setTimezone] = useState(initialTimezone);
   const [date, setDate] = useState(initialParts.date);
   const [time, setTime] = useState(initialParts.time);
+
+  // Unused value, only its setter matters - ticking this forces a re-render
+  // so getFormattedOutputs() recomputes the Relative format against the
+  // current moment.
+  const [, setTick] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setTick((t) => t + 1), RELATIVE_REFRESH_MS);
+    return () => clearInterval(id);
+  }, []);
 
   function handleSetDateTime(newDate, newTime) {
     setDate(newDate);
@@ -38,21 +54,36 @@ function App() {
     <Layout>
       <ThemeToggle />
       <div>
+        <header className={styles.header}>
         <h1>Discord Timestamp Generator</h1>
+          <p className={styles.subtitle}>
+            Pick a date, time & timezone — copy the format Discord understands.
+          </p>
+        </header>
 
+        <div className={styles.card}>
+          <span className={styles.sectionLabel}>Date &amp; Time</span>
         <DateTimePicker date={date} time={time} onDateChange={setDate} onTimeChange={setTime} />
 
+          <span className={styles.sectionLabel}>Timezone</span>
         <TimezoneSelector timezone={timezone} onChange={handleTimezoneChange} />
         <TimezoneShortcuts timezone={timezone} onSelect={handleTimezoneChange} />
 
+          <span className={styles.sectionLabel}>Quick Actions</span>
         <QuickButtons
           timezone={timezone}
           date={date}
           time={time}
           onSetDateTime={handleSetDateTime}
         />
+        </div>
 
+        <div className={styles.outputSection}>
+          <h2 className={styles.outputHeading}>Generated Formats</h2>
         <OutputTable formats={formats} />
+        </div>
+
+        <Footer />
       </div>
     </Layout>
   );
