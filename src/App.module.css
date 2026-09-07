@@ -11,6 +11,10 @@
   text-align: center;
 }
 
+.header > * {
+  margin: 0;
+}
+
 .title {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
@@ -23,7 +27,7 @@
 
 .columns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(280px, 380px) 1fr;
   gap: var(--spacing-xl);
   align-items: start;
 }
@@ -59,6 +63,7 @@
 .outputHeading {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
+  margin:auto;
 }
 
 @media (max-width: 768px) {
