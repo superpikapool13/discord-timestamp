@@ -53,9 +53,9 @@ function App() {
   return (
     <Layout>
       <ThemeToggle />
-      <div>
+      <div className={styles.page}>
         <header className={styles.header}>
-        <h1>Discord Timestamp Generator</h1>
+        <h1 className={styles.title}>Discord Timestamp Generator</h1>
           <p className={styles.subtitle}>
             Pick a date, time & timezone — copy the format Discord understands.
           </p>
@@ -65,10 +65,6 @@ function App() {
           <span className={styles.sectionLabel}>Date &amp; Time</span>
         <DateTimePicker date={date} time={time} onDateChange={setDate} onTimeChange={setTime} />
 
-          <span className={styles.sectionLabel}>Timezone</span>
-        <TimezoneSelector timezone={timezone} onChange={handleTimezoneChange} />
-        <TimezoneShortcuts timezone={timezone} onSelect={handleTimezoneChange} />
-
           <span className={styles.sectionLabel}>Quick Actions</span>
         <QuickButtons
           timezone={timezone}
@@ -76,6 +72,10 @@ function App() {
           time={time}
           onSetDateTime={handleSetDateTime}
         />
+
+          <span className={styles.sectionLabel}>Timezone</span>
+          <TimezoneSelector timezone={timezone} onChange={handleTimezoneChange} />
+          <TimezoneShortcuts timezone={timezone} onSelect={handleTimezoneChange} />
         </div>
 
         <div className={styles.outputSection}>
