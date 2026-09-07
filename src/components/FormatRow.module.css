@@ -16,10 +16,19 @@
   min-width: 0;
 }
 
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
 .label {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .code {
@@ -30,8 +39,9 @@
 }
 
 .preview {
+  font-weight: var(--font-weight-medium);
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-text);
 }
 
 .copyButton {

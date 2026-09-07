@@ -26,9 +26,11 @@ export function FormatRow({ label, code, preview }) {
   return (
     <div className={styles.row}>
       <div className={styles.info}>
-        <span className={styles.label}>{label}</span>
+        <div className={styles.labelRow}>
+          <span className={styles.label}>{label}</span>
+          {preview && <span className={styles.preview}>{preview}</span>}
+        </div>
         <code className={styles.code}>{code}</code>
-        {preview && <span className={styles.preview}>{preview}</span>}
       </div>
 
       <button type="button" className={styles.copyButton} onClick={handleCopy}>
