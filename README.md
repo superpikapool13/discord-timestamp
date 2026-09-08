@@ -35,7 +35,7 @@ Discord timestamps are a powerful feature, but creating them can be tedious. Thi
 - **Copy any format** with one click, with confirmation feedback
 - **Live-updating relative time** — refreshes periodically so "in 3 hours" doesn't go stale
 - **Responsive design** — works on desktop and mobile
-- **PWA-ready** — installable on mobile devices (coming soon)
+- **PWA-ready** — installable on mobile devices (manifest in place, service worker coming later)
 - **Zero dependencies** — built with vanilla React & Vite for speed
 
 ## Project Structure
