@@ -10,20 +10,19 @@
 }
 
 .info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'label preview'
+    'code .';
+  column-gap: var(--spacing-sm);
+  row-gap: var(--spacing-xs);
+  align-items: baseline;
   min-width: 0;
 }
 
-.labelRow {
-  display: flex;
-  align-items: baseline;
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
-}
-
 .label {
+  grid-area: label;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
@@ -32,6 +31,7 @@
 }
 
 .code {
+  grid-area: code;
   font-family: var(--font-mono);
   font-size: var(--font-size-base);
   color: var(--color-accent);
@@ -39,8 +39,9 @@
 }
 
 .preview {
+  grid-area: preview;
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-sm);
   color: var(--color-text);
 }
 
