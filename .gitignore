@@ -1,13 +1,14 @@
 # Logs
 *.log
-node_modules
-dist
+node_modules/
+dist/
 # Editor directories and files
 .DS_Store
 
 # Converted assets generated from SVG sources; regenerate manually
 public/favicon.ico
 public/favicon.png
+public/maskable-icon.png
 public/og-image.png
 public/apple-touch-icon.png
 

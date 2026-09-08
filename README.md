@@ -1,7 +1,6 @@
 # Discord Timestamp Generator
 
-A clean, timezone-aware Discord timestamp generator. Pick a date, time & timezone — 
-get every Discord timestamp format (`<t:unix:X>`) plus ISO & Unix, ready to copy.
+A clean, timezone-aware Discord timestamp generator. Pick a date, time & timezone — get every Discord timestamp format (`<t:unix:X>`) plus ISO & Unix, ready to copy.
  
 **Live:** https://superpikapool13.github.io/discord-timestamp/
 
@@ -31,23 +30,23 @@ Discord timestamps are a powerful feature, but creating them can be tedious. Thi
 - **Rich timezone input** — search by zone name (e.g. "Kolkata"), type a raw UTC offset (e.g. "+5:30"), or use fixed-offset codes (PST, EST, CET, AEST, etc.) that never shift for daylight saving
 - **One-click timezone shortcuts** — PT, ET, UTC, CET, IST, SGT, JST, AEST
 - **Quick actions** — jump to Now, Midnight, Noon, or the start of the current hour
-- **Dark/light theme** — respects system preference, manually toggleable
+- **Dark/light theme** — respects system preference, manually toggleable, persisted across visits
 - **Copy any format** with one click, with confirmation feedback
 - **Live-updating relative time** — refreshes periodically so "in 3 hours" doesn't go stale
 - **Responsive design** — works on desktop and mobile
-- **PWA-ready** — installable on mobile devices (manifest in place, service worker coming later)
+- **Installable PWA** — add to home screen on mobile or desktop, works offline via a network-first service worker
 - **Zero dependencies** — built with vanilla React & Vite for speed
 
 ## Project Structure
 
 ```
 ├── assets/                  # Source SVGs (favicon, OG image, background motif)
-├── public/                  # Static files copied as-is (robots.txt, manifest, converted icons)
+├── public/                  # Static files copied as-is (robots.txt, manifest, sw, converted icons)
 ├── src/
 │   ├── components/          # React components (one file + one .module.css each)
 │   ├── utils/                # Timezone/timestamp logic, no React dependencies
 │   ├── App.jsx
-│   ├── script.jsx            # Entry point (imported by main.html)
+│   ├── script.jsx            # Entry point (imported by main.html, registers the service worker)
 │   └── styles.css            # Global reset + design tokens
 ├── main.html                 # Dev entry point (built into index.html)
 ├── vite.config.js
