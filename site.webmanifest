@@ -1,0 +1,17 @@
+{
+  "name": "Discord Timestamp Generator",
+  "short_name": "D-T-G",
+  "description": "A clean, timezone-aware Discord timestamp generator.",
+  "start_url": "/discord-timestamp/",
+  "scope": "/discord-timestamp/",
+  "display": "standalone",
+  "background_color": "#1E1F27",
+  "theme_color": "#5865F2",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
