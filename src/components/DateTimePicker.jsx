@@ -7,6 +7,7 @@ export function DateTimePicker({ date, time, onDateChange, onTimeChange }) {
         <span className={styles.label}>Date</span>
         <input
           type="date"
+          name="date"
           className={styles.input}
           value={date}
           onChange={(e) => onDateChange(e.target.value)}
@@ -17,6 +18,7 @@ export function DateTimePicker({ date, time, onDateChange, onTimeChange }) {
         <span className={styles.label}>Time</span>
         <input
           type="time"
+          name="time"
           step="1"
           className={styles.input}
           value={time}

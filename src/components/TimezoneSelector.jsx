@@ -81,6 +81,7 @@ export function TimezoneSelector({ timezone, onChange }) {
       <span className={styles.label}>Search timezone</span>
       <input
         type="text"
+        name="timezone"
         className={`${styles.input} ${isInvalid ? styles.invalid : ''}`}
         list="timezone-options"
         value={draft}

@@ -26,8 +26,8 @@ export function FormatRow({ label, code, preview }) {
   return (
     <div className={styles.row}>
       <div className={styles.info}>
-          <span className={styles.label}>{label}</span>
-          {preview && <span className={styles.preview}>{preview}</span>}
+        <span className={styles.label}>{label}</span>
+        {preview && <span className={styles.preview}>{preview}</span>}
         <code className={styles.code}>{code}</code>
       </div>
 

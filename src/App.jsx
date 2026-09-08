@@ -85,7 +85,6 @@ function App() {
           </div>
 
           <div className={styles.outputSection}>
-            <h2 className={styles.outputHeading}>Generated Formats</h2>
             <OutputTable formats={formats} />
           </div>
         </div>
