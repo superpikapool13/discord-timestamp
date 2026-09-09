@@ -1,4 +1,4 @@
-<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
   <g fill="#5865F2" fill-opacity="0.1" font-family="'Cascadia Code', 'Roboto Mono', Consolas, monospace">
     <text x="10" y="40" font-size="20">&lt;t:1699999999:F&gt;</text>
     <text x="220" y="90" font-size="16">&lt;t:1699999999:R&gt;</text>
@@ -7,11 +7,9 @@
     <text x="30" y="280" font-size="16">&lt;t:1699999999:D&gt;</text>
     <text x="230" y="330" font-size="18">&lt;t:1699999999:T&gt;</text>
     <text x="60" y="390" font-size="16">&lt;t:1699999999:f&gt;</text>
-
     <circle cx="350" cy="60" r="18" fill="none" stroke="#5865F2" stroke-opacity="0.1" stroke-width="2.5"/>
-    <path d="M350 48 L350 60 L360 66" fill="none" stroke="#5865F2" stroke-opacity="0.1" stroke-width="2.5" stroke-linecap="round"/>
-
+    <path d="M350 48v12l10 6" fill="none" stroke="#5865F2" stroke-opacity=".1" stroke-width="2.5" stroke-linecap="round"/>
     <circle cx="100" cy="230" r="14" fill="none" stroke="#5865F2" stroke-opacity="0.1" stroke-width="2"/>
-    <path d="M100 221 L100 230 L107 235" fill="none" stroke="#5865F2" stroke-opacity="0.1" stroke-width="2" stroke-linecap="round"/>
+    <path d="M100 221v9l7 5" fill="none" stroke="#5865F2" stroke-opacity=".1" stroke-width="2" stroke-linecap="round"/>
   </g>
 </svg>
