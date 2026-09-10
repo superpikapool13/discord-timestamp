@@ -1,6 +1,6 @@
 # Discord Timestamp Generator
 
-A clean, timezone-aware Discord timestamp generator. Pick a date, time & timezone — get every Discord timestamp format (`<t:unix:X>`) plus ISO & Unix, ready to copy.
+A clean, timezone-aware Discord timestamp generator. Pick a date, time & timezone, & get every Discord timestamp format (`<t:unix:X>`) plus ISO & Unix, ready to copy.
  
 ![Discord Timestamp Generator](./assets/og-image.svg)
 
@@ -49,12 +49,14 @@ Discord timestamps are a powerful feature, but creating them can be tedious. Thi
 ├── public/                  # Static files copied as-is (robots.txt, manifest, sw, converted icons)
 ├── src/
 │   ├── components/          # React components (one file + one .module.css each)
+│   ├── tests/                # Vitest unit tests for src/utils/
 │   ├── utils/                # Timezone/timestamp logic, no React dependencies
 │   ├── App.jsx
 │   ├── script.jsx            # Entry point (imported by main.html, registers the service worker)
 │   └── styles.css            # Global reset + design tokens
 ├── main.html                 # Dev entry point (built into index.html)
 ├── vite.config.js
+├── vitest.setup.js           # Pins test-process timezone to UTC for deterministic tests
 └── package.json
 ```
 
@@ -83,13 +85,22 @@ npm run dev
 
 Visit the local dev URL and open `main.html`.
 
-### Build
+## Build
 
 ```bash
 npm run build
 ```
 
 Outputs a production build to `dist/`.
+
+## Testing
+
+Unit tests cover the pure utility functions in `src/utils/`: timezone conversion, DST handling, free-text input resolution, and the format-generation logic. These are the areas most likely to have a subtle bug, so they're the ones worth testing.
+
+```bash
+npm test           # run once
+npm run test:watch # re-run on file changes
+```
 
 ## License
 

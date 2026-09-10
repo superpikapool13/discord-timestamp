@@ -22,6 +22,16 @@ function renameMainToIndex() {
 export default defineConfig({
   base: '/discord-timestamp/',
   plugins: [react(), renameMainToIndex()],
+  test: {
+    // Pure JS utility tests - no DOM needed, keeps tests fast.
+    environment: 'node',
+    include: ['src/**/*.test.js'],
+    // Imports settings for the test process only, 
+    // so tests that rely on the system config are deterministic
+    // regardless of which machine/CI runs them. 
+    // Has no effect on the actual deployed app.
+    setupFiles: ['./vitest.setup.js'],
+  },
   build: {
     // Disable inlining small assets as base64 data URIs - keep everything
     // (including small SVGs like background-motif.svg) as separate files.
