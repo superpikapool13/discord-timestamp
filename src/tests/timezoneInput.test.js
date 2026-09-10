@@ -56,12 +56,16 @@ describe('formatTimezoneOption', () => {
   });
 
   it('omits the code segment when no meaningful abbreviation is available', () => {
-    // Asia/Kathmandu has an unusual +05:45 offset with no common code, and
+    // Pacific/Chatham has an unusual +12:45 offset with no common code, and
     // no manual override defined - Intl typically falls back to a raw
-    // "GMT+5:45"-style string, which formatTimezoneOption should suppress
+    // "GMT+12:45"-style string, which formatTimezoneOption should suppress
     // rather than show as a redundant duplicate of the offset.
-    const result = formatTimezoneOption('Asia/Kathmandu');
-    expect(result).toBe('UTC+05:45 - NPT (Asia/Kathmandu)');
+    // A fixed July date is used since Chatham observes its own DST shift
+    // (Southern Hemisphere summer, roughly Oct-Apr) - July is safely in
+    // its standard-time period, keeping this test deterministic.
+    const julyReference = new Date('2024-07-15T00:00:00Z');
+    const result = formatTimezoneOption('Pacific/Chatham', julyReference);
+    expect(result).toBe('UTC+12:45 (Pacific/Chatham)');
   });
 });
 
