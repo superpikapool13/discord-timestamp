@@ -82,6 +82,7 @@ export function TimezoneSelector({ timezone, onChange }) {
       <input
         type="text"
         name="timezone"
+        id="timezone-input"
         className={`${styles.input} ${isInvalid ? styles.invalid : ''}`}
         list="timezone-options"
         value={draft}
@@ -90,13 +91,15 @@ export function TimezoneSelector({ timezone, onChange }) {
         onBlur={handleBlur}
         placeholder="e.g. Asia/Kolkata or +05:30"
         autoComplete="off"
+        aria-describedby="timezone-hint"
+        aria-invalid={isInvalid}
       />
       <datalist id="timezone-options">
         {datalistOptions.map((opt) => (
           <option key={opt} value={opt} />
         ))}
       </datalist>
-      <span className={styles.hint}>Current offset: {formatOffset(currentOffset)}</span>
+      <span id="timezone-hint" className={styles.hint}> Current offset: {formatOffset(currentOffset)} {isInvalid && ' — unrecognised timezone'} </span>
     </label>
   );
 }

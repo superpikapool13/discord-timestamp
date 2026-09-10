@@ -2,6 +2,10 @@
 
 A clean, timezone-aware Discord timestamp generator. Pick a date, time & timezone — get every Discord timestamp format (`<t:unix:X>`) plus ISO & Unix, ready to copy.
  
+![Discord Timestamp Generator](./assets/og-image.svg)
+
+> 100% client-side — no data ever leaves your browser.
+
 **Live:** https://superpikapool13.github.io/discord-timestamp/
 
 ## Overview
@@ -33,6 +37,7 @@ Discord timestamps are a powerful feature, but creating them can be tedious. Thi
 - **Dark/light theme** — respects system preference, manually toggleable, persisted across visits
 - **Copy any format** with one click, with confirmation feedback
 - **Live-updating relative time** — refreshes periodically so "in 3 hours" doesn't go stale
+- **100% client-side** — no data ever leaves your browser, no server involved
 - **Responsive design** — works on desktop and mobile
 - **Installable PWA** — add to home screen on mobile or desktop, works offline via a network-first service worker
 - **Zero dependencies** — built with vanilla React & Vite for speed

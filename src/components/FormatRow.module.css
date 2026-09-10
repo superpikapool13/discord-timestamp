@@ -26,6 +26,7 @@
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  width: 18ch;
 }
 
 .code {

@@ -62,8 +62,8 @@ function App() {
         </header>
 
         <div className={styles.columns}>
-          <div className={styles.card}>
-            <span className={styles.sectionLabel}>Date &amp; Time</span>
+          <section className={styles.card} aria-label="Timestamp input">
+            <h2 id="section-datetime" className={styles.sectionLabel}>Date &amp; Time</h2>
             <DateTimePicker
               date={date}
               time={time}
@@ -71,7 +71,7 @@ function App() {
               onTimeChange={setTime}
             />
 
-            <span className={styles.sectionLabel}>Quick Actions</span>
+            <h2 id="section-quickactions" className={styles.sectionLabel}>Quick Actions</h2>
             <QuickButtons
               timezone={timezone}
               date={date}
@@ -79,14 +79,14 @@ function App() {
               onSetDateTime={handleSetDateTime}
             />
 
-            <span className={styles.sectionLabel}>Timezone</span>
+            <h2 id="section-timezone" className={styles.sectionLabel}>Timezone</h2>
             <TimezoneSelector timezone={timezone} onChange={handleTimezoneChange} />
             <TimezoneShortcuts timezone={timezone} onSelect={handleTimezoneChange} />
-          </div>
+          </section>
 
-          <div className={styles.outputSection}>
+          <section className={styles.outputSection} aria-labelledby="output-heading">
             <OutputTable formats={formats} />
-          </div>
+          </section>
         </div>
 
         <Footer />

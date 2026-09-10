@@ -24,15 +24,15 @@ export function FormatRow({ label, code, preview }) {
   }
 
   return (
-    <div className={styles.row} onClick={handleCopy}>
+    <div className={styles.row} onClick={handleCopy} role="button" tabIndex={0} aria-label={`${label}${preview ? `: ${preview}` : ''}. Code: ${code}. Click to copy.`} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleCopy(); } }}>
       <div className={styles.info}>
         <span className={styles.label}>{label}</span>
         <code className={styles.code}>{code}</code>
         {preview && <span className={styles.preview}>{preview}</span>}
       </div>
 
-      <button type="button" className={styles.copyButton} onClick={handleCopy}>
-        {copied ? 'Copied!' : 'Copy'}
+      <button type="button" className={styles.copyButton} onClick={handleCopy} aria-label={`Copy ${label} format`} tabIndex={-1}>
+        <span aria-live="polite" aria-atomic="true">{copied ? 'Copied!' : 'Copy'}</span>
       </button>
     </div>
   );

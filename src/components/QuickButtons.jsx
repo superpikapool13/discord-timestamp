@@ -26,7 +26,7 @@ export function QuickButtons({ timezone, date, time, onSetDateTime }) {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} role="group" aria-label="Quick time actions">
       <button type="button" className={styles.button} onClick={handleNow}>
         Now
       </button>

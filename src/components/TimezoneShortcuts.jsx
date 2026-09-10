@@ -12,13 +12,14 @@ export function TimezoneShortcuts({ timezone, onSelect }) {
   );
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} role="group" aria-label="Timezone shortcuts">
       {shortcuts.map(({ label, zone }) => (
         <button
           key={label}
           type="button"
           className={`${styles.button} ${zone === timezone ? styles.active : ''}`}
           onClick={() => onSelect(zone)}
+          aria-pressed={zone === timezone}
         >
           {label}
         </button>
