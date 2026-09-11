@@ -17,6 +17,20 @@ function isOffsetLike(value) {
   return /^(GMT|UTC)([+-]\d{1,2}(:?\d{2})?)?$/i.test(value.trim());
 }
 
+// Intl.supportedValuesOf('timeZone') is allowed by spec to return an
+// implementation-defined subset - some runtimes have been observed to omit
+// zones that are nonetheless perfectly valid to construct a formatter with.
+// This checks validity directly, which can't have that same gap.
+function isValidTimeZone(zone) {
+  try {
+    // eslint-disable-next-line no-new
+    new Intl.DateTimeFormat(undefined, { timeZone: zone });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Returns the short, localized abbreviation for a real IANA zone at a given instant
  * (e.g. "IST", "PDT"), or null if no meaningful abbreviation is available
@@ -92,7 +106,6 @@ const COMPOSITE_RE = /^UTC([+-]\d{2}:\d{2})(?:\s*-\s*(.+?))?\s*(?:\(([^)]+)\))?$
  *   - An exact (case-insensitive) IANA zone name, e.g. "Asia/Kolkata"
  *   - A fixed-offset code, e.g. "PST"
  *   - A composite display string picked from the dropdown
- *   - e.g. "UTC+05:30 - IST (Asia/Kolkata)"
  *   - A raw UTC offset, e.g. "+5:30", "-8", "utc+2", "gmt-04:00", "5:30"
  * Returns null if the input doesn't match anything recognizable.
  */
@@ -110,6 +123,11 @@ export function resolveTimezoneInput(rawText) {
   const zoneMatch = getAllTimeZones().find((z) => z.toLowerCase() === trimmed.toLowerCase());
   if (zoneMatch) return zoneMatch;
 
+  // Fall back to validating the input's exact casing directly, in case it's
+  // a valid zone missing from getAllTimeZones()'s enumeration (see
+  // isValidTimeZone above).
+  if (isValidTimeZone(trimmed)) return trimmed;
+
   // Composite display string picked from the dropdown
   const composite = trimmed.match(COMPOSITE_RE);
   if (composite) {
@@ -125,15 +143,19 @@ export function resolveTimezoneInput(rawText) {
         (f) => f.description.toLowerCase() === detailPart.toLowerCase()
       );
       if (detailFixedMatch) return detailFixedMatch.zone;
+
+      // Same fallback as above - the detail text may be a valid zone that
+      // simply isn't enumerated by getAllTimeZones() in this runtime.
+      if (isValidTimeZone(detailPart)) return detailPart;
     }
 
     if (codePart) {
-    const codeFixedMatch = FIXED_OFFSET_TIMEZONES.find(
-      (f) => f.code.toLowerCase() === codePart.toLowerCase()
-    );
-    if (codeFixedMatch) return codeFixedMatch.zone;
+      const codeFixedMatch = FIXED_OFFSET_TIMEZONES.find(
+        (f) => f.code.toLowerCase() === codePart.toLowerCase()
+      );
+      if (codeFixedMatch) return codeFixedMatch.zone;
 
-    if (codePart.toLowerCase() === 'utc') return 'UTC';
+      if (codePart.toLowerCase() === 'utc') return 'UTC';
     }
 
     // Fall back to the offset itself if nothing else matched.
