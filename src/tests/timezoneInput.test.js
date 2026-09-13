@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { resolveTimezoneInput, getDisplayLabel, formatTimezoneOption } from '../utils/timezoneInput';
+import {
+  resolveTimezoneInput,
+  getDisplayLabel,
+  formatTimezoneOption,
+} from '../utils/timezoneInput';
 
 describe('resolveTimezoneInput', () => {
   it('resolves an exact IANA zone name, case-insensitively', () => {

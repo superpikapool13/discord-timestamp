@@ -63,15 +63,14 @@ function App() {
 
         <div className={styles.columns}>
           <section className={styles.card} aria-label="Timestamp input">
-            <h2 id="section-datetime" className={styles.sectionLabel}>Date &amp; Time</h2>
-            <DateTimePicker
-              date={date}
-              time={time}
-              onDateChange={setDate}
-              onTimeChange={setTime}
-            />
+            <h2 id="section-datetime" className={styles.sectionLabel}>
+              Date &amp; Time
+            </h2>
+            <DateTimePicker date={date} time={time} onDateChange={setDate} onTimeChange={setTime} />
 
-            <h2 id="section-quickactions" className={styles.sectionLabel}>Quick Actions</h2>
+            <h2 id="section-quickactions" className={styles.sectionLabel}>
+              Quick Actions
+            </h2>
             <QuickButtons
               timezone={timezone}
               date={date}
@@ -79,7 +78,9 @@ function App() {
               onSetDateTime={handleSetDateTime}
             />
 
-            <h2 id="section-timezone" className={styles.sectionLabel}>Timezone</h2>
+            <h2 id="section-timezone" className={styles.sectionLabel}>
+              Timezone
+            </h2>
             <TimezoneSelector timezone={timezone} onChange={handleTimezoneChange} />
             <TimezoneShortcuts timezone={timezone} onSelect={handleTimezoneChange} />
           </section>

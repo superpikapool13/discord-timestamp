@@ -108,8 +108,8 @@ export function getOffsetMinutes(timeZone, date = new Date()) {
  * into the actual UTC instant (a Date object) it represents.
  * Accepts either a real IANA zone id or a synthetic fixed-offset string.
  *
- * JS's Date has no native concept of "this date/time in timezone X" 
- * - it can only represent absolute instants. 
+ * JS's Date has no native concept of "this date/time in timezone X"
+ * - it can only represent absolute instants.
  * For real IANA zones this works around that by:
  *   1. Guessing the instant assuming the wall-clock values are UTC
  *   2. Checking what offset the target timezone has at that guessed instant

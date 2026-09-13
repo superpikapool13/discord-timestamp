@@ -11,8 +11,8 @@ export function Footer() {
           rel="noopener noreferrer"
         >
           Source on GitHub
-        </a>
-        {' '}· MIT Licensed
+        </a>{' '}
+        · MIT Licensed
       </span>
     </footer>
   );

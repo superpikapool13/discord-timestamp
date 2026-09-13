@@ -1,7 +1,7 @@
 # Discord Timestamp Generator
 
 A clean, timezone-aware Discord timestamp generator. Pick a date, time & timezone, & get every Discord timestamp format (`<t:unix:X>`) plus ISO & Unix, ready to copy.
- 
+
 ![Discord Timestamp Generator](./assets/og-image.svg)
 
 > 100% client-side — no data ever leaves your browser.
@@ -45,10 +45,10 @@ Discord timestamps are a powerful feature, but creating them can be tedious. Thi
 ## Project Structure
 
 ```
-├── assets/                  # Source SVGs (favicon, OG image, background motif)
-├── public/                  # Static files copied as-is (robots.txt, manifest, sw, converted icons)
+├── assets/                   # Source SVGs (favicon, OG image, background motif)
+├── public/                   # Static files copied as-is (robots.txt, manifest, sw, converted icons)
 ├── src/
-│   ├── components/          # React components (one file + one .module.css each)
+│   ├── components/           # React components (one file + one .module.css each)
 │   ├── tests/                # Vitest unit tests for src/utils/
 │   ├── utils/                # Timezone/timestamp logic, no React dependencies
 │   ├── App.jsx

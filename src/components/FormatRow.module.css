@@ -79,19 +79,18 @@
   }
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .info {
-    grid-template-areas: 
+    grid-template-areas:
       'label code'
       'preview preview';
   }
-  
 }
 @media (min-width: 769px) and (max-width: 1200px) {
   .info {
-    grid-template-areas: 
+    grid-template-areas:
       'label'
       'code'
       'preview';
-  }  
+  }
 }

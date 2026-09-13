@@ -2,7 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { getAllTimeZones } from '../utils/timezoneList';
 import { FIXED_OFFSET_TIMEZONES } from '../utils/fixedOffsetTimezones';
 import { getLocalTimeZone, getOffsetMinutes } from '../utils/datetimeHelpers';
-import { resolveTimezoneInput, getDisplayLabel, formatTimezoneOption } from '../utils/timezoneInput';
+import {
+  resolveTimezoneInput,
+  getDisplayLabel,
+  formatTimezoneOption,
+} from '../utils/timezoneInput';
 import styles from './TimezoneSelector.module.css';
 
 function formatOffset(minutes) {
@@ -99,7 +103,9 @@ export function TimezoneSelector({ timezone, onChange }) {
           <option key={opt} value={opt} />
         ))}
       </datalist>
-      <span id="timezone-hint" className={styles.hint}> Current offset: {formatOffset(currentOffset)} {isInvalid && ' — unrecognised timezone'} </span>
+      <span id="timezone-hint" className={styles.hint}>
+        Current offset: {formatOffset(currentOffset)} {isInvalid && ' — unrecognised timezone'}
+      </span>
     </label>
   );
 }
