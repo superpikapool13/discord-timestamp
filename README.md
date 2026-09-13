@@ -102,6 +102,16 @@ npm test           # run once
 npm run test:watch # re-run on file changes
 ```
 
+## Code Quality
+
+ESLint and Prettier are configured to not conflict, with `eslint-config-prettier` disabling any ESLint stylistic rules that would otherwise fight with Prettier's formatting decisions.
+
+```bash
+npm run lint         # check for lint errors
+npm run format       # auto-format all files with Prettier
+npm run format:check # check formatting without changing files
+```
+
 ## License
 
 MIT — see [LICENSE](./LICENSE).

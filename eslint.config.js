@@ -3,6 +3,7 @@ import globals from 'globals';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import prettierConfig from 'eslint-config-prettier';
 
 export default [
   { ignores: ['dist/'] },
@@ -39,4 +40,7 @@ export default [
       'react/prop-types': 'off',
     },
   },
+  // Must be last: disables any ESLint stylistic rules that would conflict
+  // with Prettier's formatting decisions, so the two tools never fight.
+  prettierConfig,
 ];
