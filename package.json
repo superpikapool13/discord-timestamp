@@ -1,7 +1,7 @@
 {
   "name": "discord-timestamp",
   "private": true,
-  "version": "1.2.3",
+  "version": "1.2.3+a",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
+    "predeploy": "vite build",
     "deploy": "gh-pages -d dist -b gh-pages"
   },
   "dependencies": {

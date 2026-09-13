@@ -23,7 +23,6 @@ function isOffsetLike(value) {
 // This checks validity directly, which can't have that same gap.
 function isValidTimeZone(zone) {
   try {
-    // eslint-disable-next-line no-new
     new Intl.DateTimeFormat(undefined, { timeZone: zone });
     return true;
   } catch {
@@ -32,7 +31,7 @@ function isValidTimeZone(zone) {
 }
 
 /**
- * Returns the short, localized abbreviation for a real IANA zone at a given instant
+ * Returns a short abbreviation for a real IANA zone at a given instant
  * (e.g. "IST", "PDT"), or null if no meaningful abbreviation is available
  * (i.e. only a restated offset, which isn't worth displaying twice).
  * Checks a curated override map first, since Intl's 'short' name falls
@@ -62,7 +61,7 @@ function getShortCode(zone, date) {
  * When no meaningful abbreviation is available, the code segment is
  * omitted entirely rather than showing a duplicate of the offset:
  *   "UTC+05:45 (Asia/Kathmandu)"
- * Fixed-offset entries (PST, CET, etc.) use their known code/description
+ * Fixed-offset entries (PST, CET, etc.) always use their known code.
  */
 export function formatTimezoneOption(zone, referenceDate = new Date()) {
   const fixed = FIXED_OFFSET_TIMEZONES.find((f) => f.zone === zone);
